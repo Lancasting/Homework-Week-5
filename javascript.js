@@ -11,7 +11,7 @@ $(document).ready(function () {
     }, 1000)
     let scheduleInfo = [];
     let hours = moment().hours();
-    let workHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+    let workHours = [9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22];
     
     init();
 
@@ -55,7 +55,7 @@ $(document).ready(function () {
             newButton.attr("value", workHours[currentIndex]);
             buttonCol.append(newButton);
         let buttonClass = $("<i>");
-            buttonClass.addClass("far fa-save");
+            buttonClass.addClass("fas fa-save");
             newButton.append(buttonClass);
 
     }
@@ -75,12 +75,11 @@ $(document).ready(function () {
             text = workHours + "AM"
         }
         return text;
-
     }
-
     function updateList(theObj, currentText) {
+        console.log(scheduleInfo);
         for (let i = 0; i < scheduleInfo.length; i++) {
-            if(scheduleInfo[i].scheduleInfo === theObj.scheduleTime) {
+            if(scheduleInfo[i].time === theObj.time) {
             scheduleInfo[i].text = currentText;
             return;
             }
@@ -95,25 +94,25 @@ $(document).ready(function () {
         else if(hours === workHours) {
             return "present";
         }
-        else "future";
+        return "future"; 
     }
 
     function checkForText(hour) {
         let agenda = "";
-        for (let h = 0; h < scheduleInfo.length; h++) {
-            if (scheduleInfo[h].time == hour) {
-                agenda = scheduleInfo[h].text
+        for (let i = 0; i < scheduleInfo.length; i++) {
+            if (scheduleInfo[i].time == hour) {
+                agenda = scheduleInfo[i].text
                 break;
             }
         }
         return agenda;
     }
 
-   
+   checkForText();
     
 
     $("section").click(function(event) {
-        if(event.target.id !== "clear" && event.target.id !== "saveAll" && event.target.matches("button") || event.target.matches("i")) {
+        if(event.target.matches("button") || event.target.matches("i")) {
             console.log(this)
             let text = this.children[1].children[0].value;
             let scheduleTime = this.children[2].children[0].value;
