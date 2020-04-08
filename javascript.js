@@ -11,8 +11,8 @@ $(document).ready(function () {
     }, 1000)
     let scheduleInfo = [];
     let hours = moment().hours();
-    let workHours = [9, 10, 11, 12, 13, 14, 18, 19, 20, 21, 22];
-    
+    let workHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+
     init();
 
     function init() {
@@ -21,10 +21,6 @@ $(document).ready(function () {
             createSchedule(i);
         }
     }
-
-    // function init() {
-    //     
-    // }
 
     function createSchedule(currentIndex) {
         let scheduleRow = $("<section>");
@@ -43,7 +39,7 @@ $(document).ready(function () {
             scheduleText.addClass("col-sm-10");
             scheduleRow.append(scheduleText);
         let textArea = $("<textarea>");
-            textArea.val(checkForText[currentIndex]);
+            textArea.val(checkForText(workHours[currentIndex]));
             textArea.addClass(hourClass(workHours[currentIndex]));
             scheduleText.append(textArea);
 
@@ -57,7 +53,6 @@ $(document).ready(function () {
         let buttonClass = $("<i>");
             buttonClass.addClass("fas fa-save");
             newButton.append(buttonClass);
-
     }
 
     function checkLocalStorage() {
@@ -76,8 +71,8 @@ $(document).ready(function () {
         }
         return text;
     }
+
     function updateList(theObj, currentText) {
-        console.log(scheduleInfo);
         for (let i = 0; i < scheduleInfo.length; i++) {
             if(scheduleInfo[i].time === theObj.time) {
             scheduleInfo[i].text = currentText;
@@ -100,17 +95,13 @@ $(document).ready(function () {
     function checkForText(hour) {
         let agenda = "";
         for (let i = 0; i < scheduleInfo.length; i++) {
+            console.log(hour, scheduleInfo[i].time)
             if (scheduleInfo[i].time == hour) {
-                agenda = scheduleInfo[i].text
-                break;
+                return agenda = scheduleInfo[i].text
             }
         }
-        return agenda;
     }
-
-   checkForText();
     
-
     $("section").click(function(event) {
         if(event.target.matches("button") || event.target.matches("i")) {
             console.log(this)
@@ -120,21 +111,8 @@ $(document).ready(function () {
                 time: scheduleTime,
                 text: text
             }
-            updateList(newObj, text);
+            updateList(newObj, text,);
             localStorage.setItem("schedule", JSON.stringify(scheduleInfo));
         }
      });
-
 });
-
-
- // function renderSchedule() {
-    //     scheduleStore = "";
-    //     $("textarea").attr.scheduleStore
-    //     for (let s = 0; s < scheduleText.length; s++) {
-    //         var scheduleStore = scheduleText[s];
-
-
-    //  }
-    // }
-// store times in local storage

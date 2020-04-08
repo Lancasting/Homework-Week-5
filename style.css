@@ -73,6 +73,7 @@ textarea{
   font-size: 20px;
   transition: all .3s ease-in-out;
 }
+
 .col-sm-10, .col-sm-1 {
   padding-left: 0px;
   padding-right: 0px;
